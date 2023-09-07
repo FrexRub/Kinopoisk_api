@@ -25,12 +25,12 @@ async def get_movie_id(id:str = "666") -> Tuple[Dict[str, Any], int]:
     return date, response.status_code
 
 if __name__ == "__main__":
-    adata, code = asyncio.run(get_movie_id(id=str(666)))
-    data_film = adata["docs"]
-    for i_key, i_val in adata.items():
-        print(i_key, i_val)
-    for i_list in data_film:
-        print(i_list)
+    # adata, code = asyncio.run(get_movie_id(id=str(666)))
+    # data_film = adata["docs"]
+    # for i_key, i_val in adata.items():
+    #     print(i_key, i_val)
+    # for i_list in data_film:
+    #     print(i_list)
 
     # with open('json_data.json', 'w', encoding='UTF-8') as file:
     #     json.dump(adata, file, indent=4)
@@ -40,5 +40,20 @@ if __name__ == "__main__":
 
     name_film = data['name']
     names_film = data['names']
-    print(name_film)
-    print(*names_film)
+    rating_kp_film = data['rating']['kp']
+    rating_imdb_film = data['rating']['imdb']
+    age_rating_film = data['ageRating']
+    poster_film = data['poster']['url']
+    description_film = data['description']
+    type_film = data['type']
+    slogan_film = data['slogan']
+    year_film = data['year']
+    print('Название:', name_film)
+    # print(*names_film)
+    print("Рейтинг КП:", rating_kp_film, "Рейтинг IMDB:", rating_imdb_film)
+    print("Год производства:", year_film)
+    print("Возрастное ограничение:", age_rating_film)
+    print("Жанр:", type_film)
+    print("Постер:", poster_film)
+    print("Краткое содержание:", description_film)
+    print("Слоган:", slogan_film)
