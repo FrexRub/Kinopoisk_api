@@ -1,6 +1,7 @@
 import asyncio
 import json
 import requests
+from typing import Dict, Any, Tuple
 
 from settings import SiteSettings
 
@@ -11,32 +12,28 @@ headers = {
     "X-API-KEY": site.api_key.get_secret_value()
 }
 
-
-
-async def get_movie_async():
+async def get_movie_id(id:str = "666") -> Tuple[Dict[str, Any], int]:
     """
     Асинхронный запрос.
     Получить информацию о фильмы по kp id
     :return: Информация о фильме
     """
-    id = 666
-    url = f"{BASEURL}/v1.3/movie/{id}"
-    print(url, headers)
-    # text_querystring = {"languagecode": "ru"}
-    # text_querystring["text"] = name_city
-    response = requests.get(url, headers=headers)
-    # response = requests.get(url, headers=headers, params=text_querystring)
+    param_request = {"id": id}
+    url = f"{BASEURL}/v1.3/movie"
+    response = requests.get(url, headers=headers, params=param_request)
     date = json.loads(response.text)
-    return date
+    return date, response.status_code
 
 if __name__ == "__main__":
-    adata = asyncio.run(get_movie_async())
-    # data = get_movie()
-    print(adata)
+    adata, code = asyncio.run(get_movie_id(id=str(666)))
+    data_film = adata["docs"]
+    for i_key, i_val in adata.items():
+        print(i_key, i_val)
+    for i_list in data_film:
+        print(i_list)
 
-    # print(adata.json().encode('utf8'))
     # with open('json_data.json', 'w', encoding='UTF-8') as file:
-    #     file.write(adata.json(indent=4))
+    #     json.dump(adata, file, indent=4)
 
     with open('json_data.json', 'r') as file:
         data = json.load(file)

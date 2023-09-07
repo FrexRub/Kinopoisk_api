@@ -1,16 +1,16 @@
-# This is a sample Python script.
+import asyncio
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from utils import get_movie_id
+from messages import message_err, message_no_id, message_info_film
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    adata, code = asyncio.run(get_movie_id(id=str(666)))
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    if code != 200:
+        asyncio.run(message_err(code))
+    elif adata["docs"][0].get("id") is None:
+        asyncio.run(message_no_id())
+    else:
+        asyncio.run(message_info_film(adata))
