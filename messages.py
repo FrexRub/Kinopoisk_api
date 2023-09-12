@@ -54,15 +54,20 @@ def message_info_film(data: Dict[str, Any]) -> None:
     type_film = data_film['type']
     year_film = data_film['year']
     countries_film = data_film['countries'][0]['name']
-    persons_film: Dict[str, List[Person]] = get_info_person(data)
-    director_film = [i_prof.name for i_prof in persons_film["director"]]
-    actor_film = [i_prof.name for i_prof in persons_film["actor"]]
+    if data.get("persons"):
+        persons_film: Dict[str, List[Person]] = get_info_person(data)
+        director_film = [i_prof.name for i_prof in persons_film["director"]]
+        actor_film = [i_prof.name for i_prof in persons_film["actor"]]
+    else:
+        director_film = actor_film = None
 
     print('Название:', name_film)
     print("Рейтинг КП:", rating_kp_film, "Рейтинг IMDB:", rating_imdb_film)
     print("Год производства:", year_film)
-    print("Режиссер:", ','.join(director_film))
-    print("Актёры:", ','.join(actor_film))
+    if director_film:
+        print("Режиссер:", ','.join(director_film))
+    if actor_film:
+        print("Актёры:", ','.join(actor_film))
     print("Страна:", countries_film)
     print("Возрастное ограничение:", age_rating_film)
     print("Жанр:", type_film)
