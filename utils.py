@@ -12,11 +12,10 @@ headers = {
     "X-API-KEY": site.api_key.get_secret_value()
 }
 
-async def get_movie_id(id:str = "666") -> Tuple[Dict[str, Any], int]:
+def get_movie_id(id:str = "666") -> Tuple[Dict[str, Any], int]:
     """
-    Асинхронный запрос.
     Получить информацию о фильмы по kp id
-    :return: Информация о фильме
+    :return: Информация о фильме и коде состояния
     """
     # param_request = {"id": id}
     url = f"{BASEURL}/v1.3/movie/{str(id)}"
@@ -24,6 +23,18 @@ async def get_movie_id(id:str = "666") -> Tuple[Dict[str, Any], int]:
     response = requests.get(url, headers=headers)
     date = json.loads(response.text)
     return date, response.status_code
+
+
+def get_movie_random() -> Tuple[Dict[str, Any], int]:
+    """
+    Получить информацию о случайном фильме
+    :return: Информация о фильме и код состояния
+    """
+    url = f"{BASEURL}/v1.3/movie/random"
+    response = requests.get(url, headers=headers)
+    date = json.loads(response.text)
+    return date, response.status_code
+
 
 if __name__ == "__main__":
     adata, code = asyncio.run(get_movie_id(id=str(4647040)))
