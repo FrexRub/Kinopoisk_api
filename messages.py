@@ -67,13 +67,13 @@ def message_info_film(data: Dict[str, Any]) -> None:
     if director_film:
         print("Режиссер:", ','.join(director_film))
     if actor_film:
-        print("Актёры:", ','.join(actor_film))
+        fprint(f"Актёры: {','.join(actor_film)}")
     print("Страна:", countries_film)
     print("Возрастное ограничение:", age_rating_film)
     print("Жанр:", type_film)
     print("Жанр:", get_info_genres(data))
     print("Постер:", poster_film)
-    print("Краткое содержание:", description_film)
+    fprint(f"Краткое содержание: {description_film}")
 
 
 def message_short_info_film(data: Dict[str, Any]) -> None:
@@ -95,4 +95,18 @@ def message_short_info_film(data: Dict[str, Any]) -> None:
     print("Жанр:", type_film)
     print("Жанр:", ','.join(data_film["genres"]))
     print("Постер:", poster_film)
-    print("Краткое содержание:", description_film)
+    fprint(f"Краткое содержание: {description_film}")
+
+def fprint(out_text:str, width:int=65) -> None:
+    """Вывод теска с использованием заданной ширины вывода
+    :param out_text: выводимы текст
+    :type out_text: str
+    :param width: ширина вывода текста
+    :type width: int
+    """
+    out_text:List[str] = [out_text[i_step:width+i_step] for i_step in range(0, len(out_text), width)]
+    print('\n'.join(out_text))
+
+
+if __name__ in "__main__":
+    fprint('1234567890')
