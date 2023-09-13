@@ -13,7 +13,8 @@ headers = {
     "X-API-KEY": site.api_key.get_secret_value()
 }
 
-def get_movie_id(id:str = "666") -> Tuple[Dict[str, Any], int]:
+
+def get_movie_id(id: str = "666") -> Tuple[Dict[str, Any], int]:
     """
     Получить информацию о фильмы по kp id
     :return: Информация о фильме и коде состояния
@@ -36,7 +37,10 @@ def get_movie_random() -> Tuple[Dict[str, Any], int]:
     date = json.loads(response.text)
     return date, response.status_code
 
-def get_rating_film(rating: str='7-9') -> Tuple[Dict[str, Any], int]:
+
+def get_rating_film(rating: str = '7-9') -> Tuple[Dict[str, Any], int]:
+    """Возврат списка филимов по заданному рейтингу
+    :return: сведения о фильмах, код выполнения запроса"""
     param_request = {
         "page": "1",
         "limit": "10",
@@ -48,7 +52,10 @@ def get_rating_film(rating: str='7-9') -> Tuple[Dict[str, Any], int]:
 
     return date, response.status_code
 
-def get_moive_name(name_film:str = "Тор") -> None:
+
+def get_moive_name(name_film: str = "Тор") -> Tuple[Dict[str, Any], int]:
+    """Возврат списка филимов, содержащих в названии запрошенный текст
+    :return: сведения о фильмах, код выполнения запроса"""
     param_request = {
         "page": "1",
         "limit": "10",
@@ -57,24 +64,9 @@ def get_moive_name(name_film:str = "Тор") -> None:
     url = f"{BASEURL}/v1.2/movie/search"
     response = requests.get(url, headers=headers, params=param_request)
     date = json.loads(response.text)
-    print(response.url)
 
-    print(date)
-    for i_date in date["docs"]:
-        message_short_info_film(i_date)
-        # print(i_date)
-        print('\n', '=' * 15)
+    return date, response.status_code
+
 
 if __name__ == "__main__":
     get_moive_name()
-    # adata, code = asyncio.run(get_movie_id(id=str(4647040)))
-    # # data_film = adata["docs"]
-    #
-    #
-    # with open('json_data.json', 'w', encoding='UTF-8') as file:
-    #     json.dump(adata, file, indent=4)
-
-    # with open('json_data.json', 'r') as file:
-    #     data = json.load(file)
-    #
-
