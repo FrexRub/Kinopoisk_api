@@ -1,5 +1,5 @@
-from pprint import pprint
 from typing import Dict, Any, List, NamedTuple
+
 
 class Person(NamedTuple):
     id: int
@@ -7,9 +7,16 @@ class Person(NamedTuple):
     name: str
     profession: str
 
+
 def get_info_person(data: Dict[str, Any]) -> Dict[str, List[Person]]:
-    """Выборка информации по актерам, режисерам"""
-    persons_film: List[Dict[str, str|int]] = data["persons"]
+    """Возвращает информацию по актерам и режиссерам фильма
+    :param data: общая информация по фильму
+    :type data: Dict[str, Any]
+
+    :return: информация по актерам и режиссерам фильма
+    :type: Dict[str, List[Person]]
+    """
+    persons_film: List[Dict[str, str | int]] = data["persons"]
     dict_persons: Dict[str, List[Person]] = {"actor": [], "director": []}
     for i_dic in persons_film:
         if i_dic["enProfession"] in ("actor", "director"):
@@ -21,7 +28,13 @@ def get_info_person(data: Dict[str, Any]) -> Dict[str, List[Person]]:
 
 
 def get_info_genres(data: Dict[str, Any]) -> str:
-    """Выборка информации по актерам, режисерам"""
+    """Возвращает информацию о жанре картины
+    :param data: общая информация по фильму
+    :type data: Dict[str, Any]
+
+    :return: информация по актерам и режиссерам фильма
+    :type: str
+    """
     genres_film: List[Dict[str, str]] = data["genres"]
     result_list: List[str] = list()
     for i_data in genres_film:
@@ -40,12 +53,13 @@ def message_no_id() -> None:
 
 
 def message_info_film(data: Dict[str, Any]) -> None:
-    """Вывод полной информации о фильме"""
+    """Вывод полной информации о фильме
+    :param data: общая информация по фильму
+    :type data: Dict[str, Any]
+    """
     data_film: Dict[str, Any] = data
 
     name_film: str = data_film['name']
-    names_film: str = data_film['names']
-
     rating_kp_film = data_film['rating']['kp']
     rating_imdb_film = data_film['rating']['imdb']
     age_rating_film = data_film.get('ageRating')
@@ -77,7 +91,10 @@ def message_info_film(data: Dict[str, Any]) -> None:
 
 
 def message_short_info_film(data: Dict[str, Any]) -> None:
-    """Вывод краткой информации о фильме"""
+    """Вывод краткой информации о фильме
+    :param data: общая информация по фильму
+    :type data: Dict[str, Any]
+    """
     data_film: Dict[str, Any] = data
     name_film: str = data_film['name']
     rating_film = data_film['rating']
@@ -97,14 +114,15 @@ def message_short_info_film(data: Dict[str, Any]) -> None:
     print("Постер:", poster_film)
     fprint(f"Краткое содержание: {description_film}")
 
-def fprint(out_text:str, width:int=65) -> None:
+
+def fprint(out_text: str, width: int = 65) -> None:
     """Вывод теска с использованием заданной ширины вывода
     :param out_text: выводимы текст
     :type out_text: str
     :param width: ширина вывода текста
     :type width: int
     """
-    out_text:List[str] = [out_text[i_step:width+i_step] for i_step in range(0, len(out_text), width)]
+    out_text: List[str] = [out_text[i_step:width + i_step] for i_step in range(0, len(out_text), width)]
     print('\n'.join(out_text))
 
 
