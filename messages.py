@@ -40,7 +40,7 @@ def message_no_id() -> None:
 
 
 def message_info_film(data: Dict[str, Any]) -> None:
-    """Вывод сообщения об отсутствие id"""
+    """Вывод полной информации о фильме"""
     data_film: Dict[str, Any] = data
 
     name_film: str = data_film['name']
@@ -72,5 +72,27 @@ def message_info_film(data: Dict[str, Any]) -> None:
     print("Возрастное ограничение:", age_rating_film)
     print("Жанр:", type_film)
     print("Жанр:", get_info_genres(data))
+    print("Постер:", poster_film)
+    print("Краткое содержание:", description_film)
+
+
+def message_short_info_film(data: Dict[str, Any]) -> None:
+    """Вывод краткой информации о фильме"""
+    data_film: Dict[str, Any] = data
+    name_film: str = data_film['name']
+    rating_film = data_film['rating']
+    poster_film = data_film['poster']
+    description_film = data_film['description']
+    type_film = data_film['type']
+    year_film = data_film['year']
+    countries_film = data_film['countries']
+
+    print('id:', data_film['id'])
+    print('Название:', name_film)
+    print("Рейтинг:", rating_film)
+    print("Год производства:", year_film)
+    print("Страна:", ','.join(countries_film))
+    print("Жанр:", type_film)
+    print("Жанр:", ','.join(data_film["genres"]))
     print("Постер:", poster_film)
     print("Краткое содержание:", description_film)

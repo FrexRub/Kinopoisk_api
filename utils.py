@@ -3,7 +3,7 @@ import json
 import requests
 from typing import Dict, Any, Tuple
 
-from messages import message_info_film
+from messages import message_info_film, message_short_info_film
 from settings import SiteSettings
 
 site = SiteSettings()
@@ -36,24 +36,37 @@ def get_movie_random() -> Tuple[Dict[str, Any], int]:
     date = json.loads(response.text)
     return date, response.status_code
 
-def any_quest() -> None:
+def get_rating_film(rating: str='7-9') -> Tuple[Dict[str, Any], int]:
     param_request = {
         "page": "1",
         "limit": "10",
-        "rating.kp": "7-9"
+        "rating.kp": rating
     }
     url = f"{BASEURL}/v1.3/movie"
     response = requests.get(url, headers=headers, params=param_request)
     date = json.loads(response.text)
+
+    return date, response.status_code
+
+def get_moive_name(name_film:str = "Тор") -> None:
+    param_request = {
+        "page": "1",
+        "limit": "10",
+        "query": name_film
+    }
+    url = f"{BASEURL}/v1.2/movie/search"
+    response = requests.get(url, headers=headers, params=param_request)
+    date = json.loads(response.text)
     print(response.url)
+
+    print(date)
     for i_date in date["docs"]:
-        message_info_film(i_date)
+        message_short_info_film(i_date)
+        # print(i_date)
         print('\n', '=' * 15)
 
-
-
 if __name__ == "__main__":
-    any_quest()
+    get_moive_name()
     # adata, code = asyncio.run(get_movie_id(id=str(4647040)))
     # # data_film = adata["docs"]
     #
