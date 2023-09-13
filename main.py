@@ -5,6 +5,7 @@ from messages import message_err, message_no_id, message_info_film
 
 
 async def movie_id() -> None:
+    """Пункт меню: Информация  о фильме по его номеру"""
     print("Информация  о фильме по его номеру (id)\n")
     input_text: str = input("Введите номер (id) фильма: ")
     if input_text.isdigit():
@@ -21,6 +22,7 @@ async def movie_id() -> None:
 
 
 async def movie_rating() -> None:
+    """Пункт меню: Список фильмов по заданному диапазону рейтинга"""
     print("Информация  о фильмах с рейтингами в запрошенном диапазоне\n")
     input_text: str = input("Введите интересуемый диапазон рейтинга (7-9): ")
     adata, code = get_rating_film(rating=input_text)
@@ -39,6 +41,7 @@ async def movie_rating() -> None:
 
 
 async def movie_random() -> None:
+    """Пункт меню: Информации о фильме, выбранном случайным образом"""
     adata, code = get_movie_random()
 
     if code != 200:
@@ -51,7 +54,7 @@ async def movie_random() -> None:
 
 
 async def movie_name_film() -> None:
-    """Информация о фильмах, содержащих в названии запрошенный текст"""
+    """Пункт меню: Поиск информации о фильме по наименованию"""
     print("Информация  о фильмах по названию\n")
     input_text: str = input("Введите название фильма: ")
     adata, code = get_moive_name(name_film=input_text)
@@ -67,7 +70,7 @@ async def movie_name_film() -> None:
             print('\n')
             print('=' * 15)
 
-# Press the green button in the gutter to run the script.
+
 if __name__ == '__main__':
     while True:
         print('Кинопоиск. Получение информации о фильмах с сайта "Кинопоиск"\n')
