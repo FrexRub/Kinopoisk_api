@@ -1,7 +1,8 @@
 import asyncio
+from typing import List
 
-from utils import get_movie_id, get_movie_random, get_rating_film, get_moive_name, message_short_info_film
-from messages import message_err, message_no_id, message_info_film
+from utils import get_movie_id, get_movie_random, get_rating_film, get_moive_name
+from messages import message_err, message_no_id, message_info_film, message_short_info_film
 
 
 async def movie_id() -> None:
@@ -18,26 +19,42 @@ async def movie_id() -> None:
         else:
             message_info_film(adata)
     else:
-        print("Необходимо ввести положительное целое число")
+        print("\n!!!Необходимо ввести положительное целое число\n")
+
+
+def valid_input_rating(rating: str) -> bool:
+    """Проверяет валидность введенного диапазона рейтингов"""
+    result: bool = True
+    list_rating: List[str] = rating.split('-')
+    if len(list_rating) != 2:
+        result = False
+    else:
+        result = list_rating[0].isdigit() and list_rating[1].isdigit()
+        if result:
+            result = int(list_rating[1]) > int(list_rating[0])
+    return result
 
 
 async def movie_rating() -> None:
     """Пункт меню: Список фильмов по заданному диапазону рейтинга"""
     print("Информация  о фильмах с рейтингами в запрошенном диапазоне\n")
-    input_text: str = input("Введите интересуемый диапазон рейтинга (7-9): ")
-    adata, code = get_rating_film(rating=input_text)
+    input_text: str = input("Введите интересуемый диапазон рейтинга (например 7-9): ")
+    if valid_input_rating(input_text):
+        adata, code = get_rating_film(rating=input_text)
 
-    if code != 200:
-        message_err(code)
-    # elif adata.get("id") is None:
-    #     message_no_id()
+        if code != 200:
+            message_err(code)
+        # elif adata.get("id") is None:
+        #     message_no_id()
+        else:
+            count = 0
+            for i_date in adata["docs"]:
+                count += 1
+                print(count, end='. ')
+                message_info_film(i_date)
+                print('=' * 15)
     else:
-        count = 0
-        for i_date in adata["docs"]:
-            count += 1
-            print(count, end='. ')
-            message_info_film(i_date)
-            print('=' * 15)
+        print("\n!!!Рейтинг должен задаваться диапазоном цифр (например: 7-9)\n")
 
 
 async def movie_random() -> None:
