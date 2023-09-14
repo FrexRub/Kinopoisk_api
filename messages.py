@@ -59,13 +59,13 @@ def message_info_film(data: Dict[str, Any]) -> None:
     """
     data_film: Dict[str, Any] = data
 
-    name_film: str = data_film['name']
+    name_film: str = data_film.get('name', "Название фильма не указано")
     rating_kp_film = data_film['rating']['kp']
     rating_imdb_film = data_film['rating']['imdb']
-    age_rating_film = data_film.get('ageRating')
+    age_rating_film = data_film.get('ageRating', "Возрастной ценз не указан")
     poster_film = data_film['poster']['url']
-    description_film = data_film['description']
-    type_film = data_film['type']
+    description_film = data_film.get('description', "Описание данного фильма отсутствует")
+    type_film = data_film.get('type', "Жанр не указан")
     year_film = data_film['year']
     countries_film = data_film['countries'][0]['name']
     if data.get("persons"):
@@ -96,13 +96,13 @@ def message_short_info_film(data: Dict[str, Any]) -> None:
     :type data: Dict[str, Any]
     """
     data_film: Dict[str, Any] = data
-    name_film: str = data_film['name']
-    rating_film = data_film['rating']
-    poster_film = data_film['poster']
-    description_film = data_film['description']
-    type_film = data_film['type']
-    year_film = data_film['year']
-    countries_film = data_film['countries']
+    name_film: str = data_film.get('name', "отсутствует")
+    rating_film = data_film.get('rating', "отсутствует")
+    poster_film = data_film.get('poster', "отсутствует")
+    description_film = data_film.get('description', "отсутствует")
+    type_film = data_film.get('type', "отсутствует")
+    year_film = data_film.get('year', "отсутствует")
+    countries_film = data_film.get('countries', "отсутствует")
 
     print('id:', data_film['id'])
     print('Название:', name_film)
@@ -110,7 +110,8 @@ def message_short_info_film(data: Dict[str, Any]) -> None:
     print("Год производства:", year_film)
     print("Страна:", ','.join(countries_film))
     print("Жанр:", type_film)
-    print("Жанр:", ','.join(data_film["genres"]))
+    if data_film.get("genres"):
+        print("Жанр:", ','.join(data_film["genres"]))
     print("Постер:", poster_film)
     fprint(f"Краткое содержание: {description_film}")
 
