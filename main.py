@@ -78,14 +78,13 @@ async def movie_name_film() -> None:
 
     if code != 200:
         message_err(code)
-    # elif adata.get("id") is None:
-    #     message_no_id()
     else:
         print(f"Информация  о найденных фильмах c названием {input_text}\n")
         for i_date in adata["docs"]:
-            message_short_info_film(i_date)
-            print('\n')
-            print('=' * 15)
+            if input_text in i_date["name"]:
+                message_short_info_film(i_date)
+                print('\n')
+                print('=' * 15)
 
 
 if __name__ == '__main__':
