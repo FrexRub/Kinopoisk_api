@@ -39,6 +39,12 @@ dict_config = {
             "handlers": ["file"],
             # "handlers": ["console", "file"],
             "propagate": False,
+        },
+        "messages": {
+            "level": "DEBUG",
+            "handlers": ["file"],
+            # "handlers": ["console", "file"],
+            "propagate": False,
         }
     }
 }
