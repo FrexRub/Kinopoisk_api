@@ -24,7 +24,7 @@ def get_movie_id(id: str = "666") -> Tuple[Dict[str, Any], int]:
     :type: Tuple[Dict[str, Any], int]
     """
     logger.info(f'Начло поиска фильма по id: {id}')
-    url = f"{BASEURL}/v1.3/movie/{id}"
+    url = f"{BASEURL}/v1.4/movie/{id}"
     try:
         response: requests.Response = requests.get(url, headers=headers)
     except Exception as exp:
@@ -44,7 +44,7 @@ def get_movie_random() -> Tuple[Dict[str, Any], int]:
     :type: Tuple[Dict[str, Any], int]
     """
     logger.info("Запуск поиска случайного фильма")
-    url = f"{BASEURL}/v1.3/movie/random"
+    url = f"{BASEURL}/v1.4/movie/random"
     try:
         response: requests.Response = requests.get(url, headers=headers)
     except Exception as exp:
@@ -72,7 +72,7 @@ def get_rating_film(rating: str = '7-9') -> Tuple[Dict[str, Any], int]:
         "rating.kp": rating
     }
     logger.info(f'Начало поиска фильма по рейтингу: {rating}')
-    url = f"{BASEURL}/v1.3/movie"
+    url = f"{BASEURL}/v1.4/movie"
     try:
         response: requests.Response = requests.get(url, headers=headers, params=param_request)
     except Exception as exp:
@@ -99,8 +99,8 @@ def get_moive_name(name_film: str = "Тор") -> Tuple[Dict[str, Any], int]:
         "limit": "10",
         "query": name_film
     }
-    logger.info(f'Начало поиска фильма по имени: {name_film}')
-    url = f"{BASEURL}/v1.2/movie/search"
+    logger.info(f'Начало поиска фильма по названию: {name_film}')
+    url = f"{BASEURL}/v1.4/movie/search"
     try:
         response: requests.Response = requests.get(url, headers=headers, params=param_request)
     except Exception as exp:
