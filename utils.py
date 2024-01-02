@@ -6,7 +6,9 @@ from typing import Dict, Any, Tuple
 from settings import SiteSettings, dict_config
 
 site = SiteSettings()
+
 BASEURL = "https://api.kinopoisk.dev"
+
 headers = {
     "accept": "application/json",
     "X-API-KEY": site.api_key.get_secret_value()

@@ -1,14 +1,17 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
-from pydantic import BaseSettings, SecretStr, StrictStr
+from pydantic import SecretStr, StrictStr
+from pydantic_settings import BaseSettings
 
-load_dotenv()
+env_path = Path('.', '.env')
+load_dotenv(dotenv_path=env_path)
 
 
 class SiteSettings(BaseSettings):
     api_key: SecretStr = os.getenv("SITE_API", None)
-    host_api: StrictStr = os.getenv("HOST_API", None)
+    # host_api: StrictStr = os.getenv("HOST_API", None)
 
 
 dict_config = {
