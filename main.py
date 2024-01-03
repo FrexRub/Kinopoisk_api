@@ -1,8 +1,21 @@
 import asyncio
 from typing import List
 
+import sentry_sdk
+
 from utils import get_movie_id, get_movie_random, get_rating_film, get_moive_name
 from messages import message_err, message_no_id, message_info_film, message_short_info_film
+
+sentry_sdk.init(
+    dsn="https://4bdeac5ba1bc8b6637c3a99d14591aa1@o4506468033495040.ingest.sentry.io/4506508206997504",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
 
 
 async def movie_id() -> None:
