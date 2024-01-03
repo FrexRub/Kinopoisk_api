@@ -46,9 +46,10 @@ def get_info_genres(data: Dict[str, Any]) -> str:
     return ','.join(result_list)
 
 
-def message_err(cod_err: int) -> None:
+def message_err(cod_err: int, data: Dict[str, Any]) -> None:
     """Вывод сообщения об ошибке"""
     print(f"Что-то пошло не так: {cod_err}")
+    print(data['message'])
 
 
 def message_no_id() -> None:

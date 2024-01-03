@@ -13,7 +13,7 @@ async def movie_id() -> None:
         adata, code = get_movie_id(id=input_text)
 
         if code != 200:
-            message_err(code)
+            message_err(code, adata)
         elif adata.get("id") is None:
             message_no_id()
         else:
@@ -43,7 +43,7 @@ async def movie_rating() -> None:
         adata, code = get_rating_film(rating=input_text)
 
         if code != 200:
-            message_err(code)
+            message_err(code, adata)
         # elif adata.get("id") is None:
         #     message_no_id()
         else:
@@ -62,7 +62,7 @@ async def movie_random() -> None:
     adata, code = get_movie_random()
 
     if code != 200:
-        message_err(code)
+        message_err(code, adata)
     elif adata.get("id") is None:
         message_no_id()
     else:
@@ -77,7 +77,7 @@ async def movie_name_film() -> None:
     adata, code = get_moive_name(name_film=input_text)
 
     if code != 200:
-        message_err(code)
+        message_err(code, adata)
     else:
         print(f"Информация  о найденных фильмах c названием {input_text}\n")
         for i_date in adata["docs"]:
